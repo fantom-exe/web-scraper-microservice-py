@@ -1,3 +1,4 @@
+import time
 from bs4 import BeautifulSoup
 import requests
 
@@ -11,9 +12,29 @@ def scraper(us_state) -> str:
     return income
 
 
+def txt_srvc():
+    def write_to_file(content):
+        print("Writing to file ...")
+        file = open('mc-output.txt', 'w')
+        file.write(str(content))
+        file.close()
+
+    def read_from_file():
+        print("Reading from file ...")
+        file = open('mc-input.txt', 'r')
+        return file.readline()
+
+    while True:
+        time.sleep(2)
+        line = read_from_file()
+        if line not None:
+            income = scraper(line)
+            write_to_file()
+
+
 def main():
-    income = scraper('nevada')
-    print(income)
+    txt_srvc()
+    print()
 
 
 main()
