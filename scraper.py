@@ -4,8 +4,11 @@ import requests
 
 
 def scraper(us_state) -> str:
+    # if State name contains space, replace with '-'
+    us_state = us_state.replace(' ', '-').lower()
+
     print('Scraping data ...')
-    url = 'https://datausa.io/profile/geo/' + us_state.casefold()
+    url = 'https://datausa.io/profile/geo/' + us_state
     html_text = requests.get(url).text
 
     soup = BeautifulSoup(html_text, 'lxml')
@@ -19,16 +22,16 @@ class textServices():
         file = open('mc-output.txt', 'w')
         file.write(content)
         file.close()
-        self.del_contents('mc-output.txt')
+        self.del_contents('mc-input.txt')
 
     def read_from_file(self):
         print("Reading from mc-input ...")
         file = open('mc-input.txt', 'r')
         return file.readline()
 
-    def del_contents(self, file_name):
-        print('Emptying ' + file_name + ' ...')
-        file = open(file_name, 'w')
+    def del_contents(self, filename):
+        print('Emptying ' + filename + ' ...')
+        file = open(filename, 'w')
         file.write('')
         file.close()
 
