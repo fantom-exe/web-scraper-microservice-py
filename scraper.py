@@ -13,36 +13,38 @@ def scraper(us_state) -> str:
     return income
 
 
-def txt_srvc():
-    def write_to_file(content):
+class textServices():
+    def write_to_file(self, content):
         print("Writing to mc-output ...")
         file = open('mc-output.txt', 'w')
         file.write(content)
         file.close()
-        del_contents()
+        self.del_contents('mc-output.txt')
 
-    def read_from_file():
+    def read_from_file(self):
         print("Reading from mc-input ...")
         file = open('mc-input.txt', 'r')
         return file.readline()
 
-    def del_contents():
-        print("Emptying input file ...")
-        file = open('mc-input.txt', 'w')
+    def del_contents(self, file_name):
+        print('Emptying ' + file_name + ' ...')
+        file = open(file_name, 'w')
         file.write('')
         file.close()
 
-    while True:
-        time.sleep(1)
-        line = read_from_file()
-        if line is not None:
-            print('US State found!')
-            income = scraper(line)
-            write_to_file(income)
-
 
 def main():
-    txt_srvc()
+    txt_srvc = textServices()
+    txt_srvc.del_contents('mc-output.txt')
+    txt_srvc.del_contents('mc-input.txt')
+
+    while True:
+        time.sleep(1.5)
+        line = txt_srvc.read_from_file()
+        if line != '':
+            print('US State found!')
+            income = scraper(line)
+            txt_srvc.write_to_file(income)
 
 
 main()
