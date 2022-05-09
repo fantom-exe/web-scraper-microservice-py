@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 
 
-def scraper(us_state):
+def scraper(us_state) -> str:
     url = 'https://datausa.io/profile/geo/' + us_state.casefold()
     html_text = requests.get(url).text
 
@@ -12,4 +12,8 @@ def scraper(us_state):
 
 
 def main():
-    income = scraper('California')
+    income = scraper('nevada')
+    print(income)
+
+
+main()
