@@ -4,7 +4,7 @@ import requests
 
 
 def scraper(us_state) -> str:
-    # if State name contains space, replace with '-'
+    # if State name contains space, replace with '-' & lowercase it
     us_state = us_state.replace(' ', '-').lower()
 
     print('Scraping data ...')
